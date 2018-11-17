@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改密码</title>
+    <link rel="stylesheet" href="__ADMIN_CSS__/bootstrap.min.css?v={:config('asset_version')}">
+    <script src="__ADMIN_JS__/core/jquery.min.js?v={:config('asset_version')}"></script>
+    <script src="__LIBS__/layer/layer.js?v={:config('asset_version')}"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+
+        <form class="form-horizontal" role="form">
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label"> 旧密码：</label>
+                <div class="col-sm-10"><input type="password" class="form-control" name="oldpassword" /></div>
+            </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 新密码：</label>
+            <div class="col-sm-10"><input type="password" class="form-control" name="password" /></div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label"> 确认密码：</label>
+            <div class="col-sm-10"><input type="password" class="form-control" name="comfirm" /></div>
+        </div>
+        <div  class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="button" class="btn btn-default" onclick="jsApiCall()"> 提交</button>
+            </div>
+        </div>
+
+    </form>
+        </div>
+    </div>
+    <script>
+        function jsApiCall(){
+            layer.load(1);
+            $.ajax({
+                type : 'POST',
+                url : '{:url("editPwd")}',
+                data : $("form").serialize(),
+                success : function(data) {
+
+                    layer.closeAll()
+                    if(data.code == 0){
+                        layer.msg(data.msg);
+                    }else{
+                        layer.msg("操作成功");
+                        setTimeout(function () {
+                            parent.layer.closeAll();
+                            parent.logout();
+                        },2000);
+
+                    }
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    layer.closeAll();
+                },
+                dataType : "json"
+            });
+        }
+
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+{extend name="$_admin_base_layout" /}
+
+{block name="content"}
+<div class="alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    <h3 class="font-w300 push-15">新手指导</h3>
+    <p>相关参数设置，请在【系统】>【系统功能】>【系统设置】>【<a class="alert-link" href="{:url('admin/system/index', ['group' => 'meal'])}">订餐</a>】中设置，或 <a class="alert-link" href="{:url('admin/system/index', ['group' => 'meal'])}">点此</a> 跳转。</p>
+    <!--<p>先 <a class="alert-link" href="{:url('cms/column/add')}">创建栏目</a>，</p>-->
+</div>
+<div class="row">
+    <div class="col-sm-6 col-md-3">
+        <a class="block block-link-hover3 text-center" href="{:url('lists')}">
+            <div class="block-content block-content-full">
+                <div class="h1 font-w700 text-primary" data-toggle="countTo" data-to="{$currentMonthCount|default=0}"></div>
+            </div>
+            <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">本月订单</div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <a class="block block-link-hover3 text-center" href="{:url('lists')}">
+            <div class="block-content block-content-full">
+                <div class="h1 font-w700 text-success" data-toggle="countTo" data-to="{$privMonthCount|default=0}"></div>
+            </div>
+            <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">上月订单</div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <a class="block block-link-hover3 text-center" href="{:url('lists',['v' => 'today'])}">
+            <div class="block-content block-content-full">
+                <div class="h1 font-w700 text-info" data-toggle="countTo" data-to="{$terdayCount|default=0}"></div>
+            </div>
+            <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">今天订单</div>
+        </a>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <a class="block block-link-hover3 text-center" href="{:url('lists')}">
+            <div class="block-content block-content-full">
+                <div class="h1 font-w700 text-warning"><span data-toggle="countTo" data-to="{$yesterdayCount|default=0}"></span></div>
+            </div>
+            <div class="block-content block-content-full block-content-mini bg-gray-lighter text-muted font-w600">昨天订单</div>
+        </a>
+    </div>
+</div>
+{/block}
+
+{block name="script"}
+<script src="__ADMIN_JS__/core/jquery.countTo.min.js"></script>
+<script>
+    jQuery(function () {
+        App.initHelpers(['appear-countTo']);
+    });
+</script>
+{/block}
